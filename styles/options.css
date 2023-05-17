@@ -1,4 +1,4 @@
-/* Elements from Game Menu */
+/* Elements for Options Menu */
 
 html {
     height: 100%;
@@ -6,35 +6,39 @@ html {
     background-repeat: no-repeat;
 }
 
-/* SVG Logo style */
-
-#star{
-	stroke:black;
-	stroke-width: 3px;
-	fill:yellow;
+.title{							
+    font-family: "Times New Roman";
+	font-size: 3rem;
+	color: white;
+	text-decoration: underline;
+	text-align: center;
+	margin-bottom: 1rem;
 }
 
-#star:hover{
-	stroke:black;
-	stroke-width: 3px;
-	fill:rgb(0, 89, 255);
+/* GAME MENU ELEMENTS */
+
+.options_id{
+	display: grid;
+	grid-template-columns: 1;
+	justify-content: center;
 }
 
-#logo{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 1rem;
+/*--- SECTIONS ---*/
+
+/*- DIFICULTY -*/
+
+.dificultyOpt_Title{
+	text-decoration: underline;
 }
 
-#logo #grad_p1{        /* Gradient color 1 */
-    stop-color:rgb(0, 255, 200);
-    stop-opacity:1
-}
-
-#logo #grad_p2{        /* Gradient color 2 */
-    stop-color:rgb(0, 174, 255);
-    stop-opacity:1
+.dificultyOpt{
+	text-align: center;
+    font-family: "Times New Roman";
+	font-size: 1.5rem;
+    font-weight: bold;
+	color: white;
+	margin-top: 2rem;
+	margin-bottom: 2rem;
 }
 
 /*--- BUTTONS ---*/
@@ -52,7 +56,7 @@ html {
 	margin-top: 1rem;
 	margin-left: auto;
 	margin-right: auto;
-    box-shadow: 0 0 1.5rem #ffffff;
+    box-shadow: 0 0 0.5rem #ffffff;
 }
 
 /* Buttons style */
