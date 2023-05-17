@@ -2,15 +2,23 @@
 
 html {
     height: 100%;
-}
-
-body{
-    height: 100%;
 	background: linear-gradient(135deg, #22c1c3 23%, #fdf72d 100%);
     background-repeat: no-repeat;
 }
 
 /* SVG Logo style */
+
+#star{
+	stroke:black;
+	stroke-width: 3px;
+	fill:yellow;
+}
+
+#star:hover{
+	stroke:black;
+	stroke-width: 3px;
+	fill:rgb(0, 89, 255);
+}
 
 #logo{
     display: flex;
@@ -28,7 +36,6 @@ body{
     stop-color:rgb(0, 174, 255);
     stop-opacity:1
 }
-
 
 /* SVG Logo style */
 
