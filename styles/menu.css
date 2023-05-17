@@ -19,12 +19,12 @@ body{
     padding-bottom: 1rem;
 }
 
-#logo #grad_p1{
+#logo #grad_p1{        /* Gradient color 1 */
     stop-color:rgb(0, 255, 200);
     stop-opacity:1
 }
 
-#logo #grad_p2{
+#logo #grad_p2{        /* Gradient color 2 */
     stop-color:rgb(0, 174, 255);
     stop-opacity:1
 }
@@ -61,4 +61,3 @@ button.menu-object:hover:not(:active){
 	width: 25rem;
 	height: 4.5rem;
 }
-

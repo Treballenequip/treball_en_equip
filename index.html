@@ -8,8 +8,9 @@
 		<title> Treball Web </title>
 	</head>
 	<body>
+		<!-- Logo del joc -->
+
 		<div id="logo">
-			<!-- Logo del joc -->
 			<svg id = "svgelem" width = "200" height = "200" xmlns = "http://www.w3.org/2000/svg">
 				<linearGradient id="grad1" x1="0%" y1="0%" x2="50%" y2="180%">
 					<stop id="grad_p1" offset="20%"/>
@@ -17,11 +18,15 @@
 				</linearGradient>
 				<circle cx="100" cy="105" r="93" stroke="black" stroke-width="4" fill="white" />
 				<circle cx="100" cy="105" r="80" stroke="black" stroke-width="8" fill="url(#grad1)" />
-				<polygon points="100 4, 130 70, 196 70, 150 120, 170 196, 100 150, 30 196, 50 120, 4  70, 65 70" stroke="black" stroke-width="3" fill="yellow"/>
-				<path d="M100,4 C100,100 60,150 196,70 L 130,70" fill="#FAF7D8"/>
+				<polygon id="star" points="100 4, 130 70, 196 70, 150 120, 170 196, 100 150, 30 196, 50 120, 4  70, 65 70" stroke="black" stroke-width="3" fill="yellow"/>
+				<path d="M100,4 C100,100 60,150 196,70 L130,70" fill="#FAF7D8"/>
 			</svg>
-			<!---->
 		</div>
+
+		<!------------------>
+
+		<!-- Menu Buttons -->
+
 		<button class="menu-object" onclick="start_game()"> 
 			Start Game 
 		</button>
@@ -34,6 +39,9 @@
 		<button class="menu-object" onclick="exit()"> 
 			Exit 
 		</button>
+
+		<!------------------>
+
 	</body>
 </html>
 
