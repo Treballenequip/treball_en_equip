@@ -1,0 +1,45 @@
+html {
+    height: 100%;
+}
+
+body{
+    height: 100%;
+	background: linear-gradient(135deg, #22c1c3 23%, #fdf72d 100%);
+    background-repeat: no-repeat;
+}
+
+#logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 1rem;
+}
+
+.menu-object{
+    display:block;
+	background-color: #0080ff;
+	border-radius: 1rem 1rem 1rem 1rem;
+	border-color: #FFFFFF;
+	font-size: 1.5rem;
+	text-align: center;
+	width: 30rem;
+	height: 4rem;
+	color: white;
+	margin-top: 1rem;
+	margin-left: auto;
+	margin-right: auto;
+    box-shadow: 0 0 1.5rem #ffffff;
+}
+
+button.menu-object:active{
+	font-size: 18px;
+	width: 275px;
+	height: 70px;
+}
+
+button.menu-object:hover:not(:active){
+	font-size: 1.5rem;
+	width: 25rem;
+	height: 4.5rem;
+}
+

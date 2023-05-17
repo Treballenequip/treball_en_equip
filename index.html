@@ -1,14 +1,27 @@
 <!DOCTYPE html> 
 <html>
 	<head>
-		<link rel="stylesheet" href="./styles/main.css">
+		<link rel="stylesheet" href="./styles/menu.css">
 		<script src="./js/loader.js"></script>
 		<script src="./js/game_info.js"></script>
 		<script src="./js/menu_controller.js"></script>
-		<title> Treball en grup - Menu </title>
+		<title> Treball Web </title>
 	</head>
 	<body>
-		<p class="menu-object" id="title">Memory menu</p>
+		<div id="logo">
+			<!-- Logo del joc -->
+			<svg id = "svgelem" width = "200" height = "200" xmlns = "http://www.w3.org/2000/svg">
+				<linearGradient id="grad1" x1="0%" y1="0%" x2="50%" y2="180%">
+					<stop offset="20%" style="stop-color:rgb(0, 255, 200);stop-opacity:1" />
+					<stop offset="50%" style="stop-color:rgb(0, 174, 255);stop-opacity:1" />
+				</linearGradient>
+				<circle cx="100" cy="105" r="93" stroke="black" stroke-width="4" fill="white" />
+				<circle cx="100" cy="105" r="80" stroke="black" stroke-width="8" fill="url(#grad1)" />
+				<polygon points="100 4, 130 70, 196 70, 150 120, 170 196, 100 150, 30 196, 50 120, 4  70, 65 70" stroke="black" stroke-width="3" fill="yellow"/>
+				<path d="M100,4 C100,100 60,150 196,70 L 130,70" fill="#FAF7D8"/>
+			</svg>
+			<!---->
+		</div>
 		<button class="menu-object" onclick="start_game()"> 
 			Start Game 
 		</button>
