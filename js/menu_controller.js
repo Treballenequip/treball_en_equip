@@ -7,7 +7,7 @@ function start_game(){
 
 //Button to go to Options
 function options (){
-	loadpage("../index.html")
+	loadpage("./html/options.html")
 }
 
 //Button to Exit
