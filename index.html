@@ -12,8 +12,8 @@
 			<!-- Logo del joc -->
 			<svg id = "svgelem" width = "200" height = "200" xmlns = "http://www.w3.org/2000/svg">
 				<linearGradient id="grad1" x1="0%" y1="0%" x2="50%" y2="180%">
-					<stop offset="20%" style="stop-color:rgb(0, 255, 200);stop-opacity:1" />
-					<stop offset="50%" style="stop-color:rgb(0, 174, 255);stop-opacity:1" />
+					<stop id="grad_p1" offset="20%"/>
+					<stop id="grad_p1" offset="50%"/>
 				</linearGradient>
 				<circle cx="100" cy="105" r="93" stroke="black" stroke-width="4" fill="white" />
 				<circle cx="100" cy="105" r="80" stroke="black" stroke-width="8" fill="url(#grad1)" />
@@ -24,6 +24,9 @@
 		</div>
 		<button class="menu-object" onclick="start_game()"> 
 			Start Game 
+		</button>
+		<button class="menu-object" onclick="options()"> 
+			Options 
 		</button>
 		<button class="menu-object" onclick="load()"> 
 			Load Game 
