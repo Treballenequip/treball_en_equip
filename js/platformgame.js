@@ -11,6 +11,7 @@ class PlatformScene extends Phaser.Scene {
 		this.scoreText;
 		this.bombs = null;
 		this.gameOver = false;
+        this.moveCam = false;
     }
     preload (){	
 		this.load.image('sky', '../assets/sky.jpg');
@@ -20,8 +21,18 @@ class PlatformScene extends Phaser.Scene {
 		);
 	}
     create (){	
+		this.cameras.main.setBounds(0, 0, 720 * 2, 176);
+
+        for (let x = 0; x < 2; x++)
+        {
+            this.add.image(720 * x, 0, 'sky').setOrigin(0);
+        }
+
+        this.cursors = this.input.keyboard.createCursorKeys();
+
+
 		{	// Creem player i definim animacions
-			this.player = this.physics.add.sprite(100, 450, 'dude');
+			this.player = this.physics.add.sprite(400, 350, 'dude');
 			this.player.setBounce(0.2);
 			this.player.setCollideWorldBounds(true);
 			
@@ -45,24 +56,12 @@ class PlatformScene extends Phaser.Scene {
 				repeat: -1
 			});
 		}
-		this.cameras.main.setBounds(0, 0, 720 * 2, 176);
-
-        for (let x = 0; x < 2; x++)
-        {
-            this.add.image(720 * x, 0, 'sky').setOrigin(0);
-        }
-
-        this.cursors = this.input.keyboard.createCursorKeys();
-
-        this.player = this.physics.add.image(400, 100, 'dude');
-
         this.cameras.main.startFollow(this.player, true);
         this.cameras.main.setZoom(2);
 	}
 	update (){	
 		const cam = this.cameras.main;
 
-        this.player.setVelocity(0);
 
         if (this.moveCam)
         {
@@ -86,22 +85,34 @@ class PlatformScene extends Phaser.Scene {
         }
         else
         {
+            this.player.anims.play('right', true);
+            this.player.setVelocityX(100);
+            console.log(this.player.body.position.y)
             if (this.cursors.left.isDown)
             {
                 this.player.setVelocityX(-400);
+				this.player.anims.play('left', true);
             }
-            else if (this.cursors.right.isDown)
+            if (this.cursors.up.isDown && this.player.body.position.y == 326)
             {
-                this.player.setVelocityX(400);
+                this.player.setPosition(this.player.body.position.x,330);
+                setTimeout(() => {
+                    console.log("1 Segundo esperado")
+                  }, 6000);
             }
-
-            if (this.cursors.up.isDown)
+            else if(this.cursors.up.isDown && this.player.body.position.y == 306)
             {
-                this.player.setVelocityY(-400);
+                this.player.setPosition(this.player.body.position.x,350);
+                setTimeout(() => {
+                    console.log("1 Segundo esperado")
+                  }, 6000);
             }
             else if (this.cursors.down.isDown)
             {
-                this.player.setVelocityY(400);
+                this.player.setPosition(this.player.body.position.x,320);
+                setTimeout(() => {
+                    console.log("1 Segundo esperado")
+                  }, 1000);
             }
         }
 	}
