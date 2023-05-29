@@ -13,25 +13,13 @@ class PlatformScene extends Phaser.Scene {
 		this.gameOver = false;
     }
     preload (){	
-		this.load.image('sky', '../resources/starsassets/sky.png');
-		this.load.image('ground', '../resources/starsassets/platform.png');
-		this.load.image('star', '../resources/starsassets/star.png');
-		this.load.image('bomb', '../resources/starsassets/bomb.png');
-		
+		this.load.image('sky', '../assets/sky.jpg');
 		this.load.spritesheet('dude',
-			'../resources/starsassets/dude.png',
+			'../assets/dude.png',
 			{ frameWidth: 32, frameHeight: 48 }
 		);
 	}
     create (){	
-		this.add.image(400, 300, 'sky');
-		{	// Creem platafomres
-			this.platforms = this.physics.add.staticGroup();
-			this.platforms.create(400, 568, 'ground').setScale(2).refreshBody();
-			this.platforms.create(600, 400, 'ground');
-			this.platforms.create(50, 250, 'ground');
-			this.platforms.create(750, 220, 'ground');
-		}
 		{	// Creem player i definim animacions
 			this.player = this.physics.add.sprite(100, 450, 'dude');
 			this.player.setBounce(0.2);
@@ -57,80 +45,65 @@ class PlatformScene extends Phaser.Scene {
 				repeat: -1
 			});
 		}
-		{	// Creem objectes interactuables
-			this.stars = this.physics.add.group({
-				key: 'star',
-				repeat: 11,
-				setXY: { x: 12, y: 0, stepX: 70 }
-			});
-			this.stars.children.iterate((child) => 
-				child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8)));
-		}
-			this.bombs = this.physics.add.group(); // Grup d'enemics
-			this.createBomb();
-		{	// Definim les col·lisions i interaccions
-			this.physics.add.collider(this.player, this.platforms);
-			this.physics.add.collider(this.stars, this.platforms);
-			this.cursors = this.input.keyboard.createCursorKeys();
-			this.physics.add.overlap(this.player, this.stars, 
-				(body1, body2)=>this.collectStar(body1, body2));
-			this.physics.add.collider(this.bombs, this.platforms);
-			this.physics.add.collider(this.player, this.bombs, 
-				(body1, body2)=>this.hitBomb(body1, body2));
-		}
-		{ // UI
-			this.scoreText = this.add.text(16, 16, 'Score: 0', 
-				{ fontSize: '32px', fill: '#000' });
-		}
+		this.cameras.main.setBounds(0, 0, 720 * 2, 176);
+
+        for (let x = 0; x < 2; x++)
+        {
+            this.add.image(720 * x, 0, 'sky').setOrigin(0);
+        }
+
+        this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.player = this.physics.add.image(400, 100, 'dude');
+
+        this.cameras.main.startFollow(this.player, true);
+        this.cameras.main.setZoom(2);
 	}
 	update (){	
-		if (this.gameOver) return;
-		{ // Moviment
-			if (this.cursors.left.isDown){
-				this.player.setVelocityX(-160);
-				this.player.anims.play('left', true);
-			}
-			else if (this.cursors.right.isDown){
-				this.player.setVelocityX(160);
-				this.player.anims.play('right', true);
-			}
-			else{
-				this.player.setVelocityX(0);
-				this.player.anims.play('turn');
-			}
+		const cam = this.cameras.main;
 
-			if (this.cursors.up.isDown && this.player.body.touching.down)
-				this.player.setVelocityY(-330);
-		}
-	}
-	collectStar(player, star){
-		star.disableBody(true, true);
-		this.score += 10;
-		this.scoreText.setText('Score: ' + this.score);
-		if (this.stars.countActive(true) === 0){
-			this.enableAllStars();
-			this.createBomb();
-		}
-	}
-	createBomb(){
-		var x = (this.player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
-        var bomb = this.bombs.create(x, 16, 'bomb');
-        bomb.setBounce(1);
-        bomb.setCollideWorldBounds(true);
-        bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
-	}
-	hitBomb(player, bomb){
-		if (this.gameOver) 
-			return;
-		this.physics.pause();
-		this.player.setTint(0xff0000);
-		this.player.anims.play('turn');
-		this.gameOver = true;
-		setTimeout(()=>loadpage("../"), 3000);
-	}
-	enableAllStars(){
-		this.stars.children.iterate(child => 
-			child.enableBody(true, child.x, 0, true, true));
+        this.player.setVelocity(0);
+
+        if (this.moveCam)
+        {
+            if (this.cursors.left.isDown)
+            {
+                cam.scrollX -= 4;
+            }
+            else if (this.cursors.right.isDown)
+            {
+                cam.scrollX += 4;
+            }
+
+            if (this.cursors.up.isDown)
+            {
+                cam.scrollY -= 4;
+            }
+            else if (this.cursors.down.isDown)
+            {
+                cam.scrollY += 4;
+            }
+        }
+        else
+        {
+            if (this.cursors.left.isDown)
+            {
+                this.player.setVelocityX(-400);
+            }
+            else if (this.cursors.right.isDown)
+            {
+                this.player.setVelocityX(400);
+            }
+
+            if (this.cursors.up.isDown)
+            {
+                this.player.setVelocityY(-400);
+            }
+            else if (this.cursors.down.isDown)
+            {
+                this.player.setVelocityY(400);
+            }
+        }
 	}
 }
 
