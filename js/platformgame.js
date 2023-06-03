@@ -37,6 +37,7 @@ class PlatformScene extends Phaser.Scene {
 
 		{	// Creem player i definim animacions
 			this.player = this.physics.add.sprite(400, 350, 'dude');
+            //376, 351, 326
 			this.player.setBounce(0.2);
 			this.player.setCollideWorldBounds(true);
 			
@@ -90,33 +91,19 @@ class PlatformScene extends Phaser.Scene {
         else
         {
             this.player.anims.play('right', true);
-            this.player.setVelocityX(300);
+            this.player.setVelocityX(100);
             console.log(this.player.body.position.y)
-            if (this.cursors.left.isDown)
+            if (this.cursors.left.isDown && this.player.body.position.y != 326)
             {
-                this.player.setVelocityX(-400);
-				this.player.anims.play('left', true);
+                this.player.setPosition(this.player.body.position.x+10,350);
             }
-            if (this.cursors.up.isDown && this.player.body.position.y == 326)
+            else if (this.cursors.down.isDown && this.player.body.position.y != 351)
             {
-                this.player.setPosition(this.player.body.position.x,330);
-                setTimeout(() => {
-                    console.log("1 Segundo esperado")
-                  }, 6000);
+                this.player.setPosition(this.player.body.position.x+10,375);
             }
-            else if(this.cursors.up.isDown && this.player.body.position.y == 306)
+            else if (this.cursors.right.isDown && this.player.body.position.y != 376)
             {
-                this.player.setPosition(this.player.body.position.x,350);
-                setTimeout(() => {
-                    console.log("1 Segundo esperado")
-                  }, 6000);
-            }
-            else if (this.cursors.down.isDown)
-            {
-                this.player.setPosition(this.player.body.position.x,320);
-                setTimeout(() => {
-                    console.log("1 Segundo esperado")
-                  }, 1000);
+                this.player.setPosition(this.player.body.position.x+10,400);
             }
         }
 	}
