@@ -12,7 +12,7 @@ var config = {
 			debug: false
 		}
 	},
-    scene: [ PlatformScene ]
+    scene: [ PlatformScene, PauseScene ]
 };
 var moveCam = false;
 var game = new Phaser.Game(config);

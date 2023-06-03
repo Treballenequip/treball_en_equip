@@ -27,7 +27,13 @@ class PlatformScene extends Phaser.Scene {
 		this.cameras.main.setBounds(0, 0, 3840 * 2, 0);
         this.physics.world.setBounds(0, 0, 3840 * 2, 1080 * 2);
 
-        
+        //Pause execution
+        this.input.keyboard.on('keydown-ESC', () => {
+            // Pausa el juego principal y lanza la escena del menú de pausa
+            this.scene.pause();
+            this.scene.launch('PauseGame');
+        });
+
         //  Mash 4 images together to create our background
         for (let x = 0; x < 30; x++)
         {
@@ -107,7 +113,16 @@ class PlatformScene extends Phaser.Scene {
         else
         {
             this.player.anims.play('right', true);
-            this.player.setVelocityX(100);
+            if (this.player.body.position.x >= 1000 && this.player.body.position.x < 1500) {
+                this.player.setVelocityX(200);
+            }
+            else if (this.player.body.position.x >= 1500) {
+                this.player.setVelocityX(300);
+            } 
+            else {
+                this.player.setVelocityX(100);
+            }
+            console.log(this.player.body.velocity.x)
             if (this.cursors.left.isDown && this.player.body.position.y != 325.6)
             {
                 this.player.setPosition(this.player.body.position.x+5,340);
@@ -150,3 +165,49 @@ class PlatformScene extends Phaser.Scene {
 	}
 }
 
+// Pause
+class PauseScene extends Phaser.Scene
+{
+    constructor ()
+    {
+        super({ key: 'PauseGame' });
+    }
+
+    preload ()
+    {
+        this.load.image('title_pause', '../assets/pause.png');
+        this.load.image('restart', '../assets/restart.png');
+        this.load.image('resume', '../assets/resume.png');
+    }
+
+    create ()
+    {
+        var title_menu = this.add.image(950, 350, 'title_pause');
+        var restart_menu = this.add.image(950, 410, 'restart');
+        var resume_menu = this.add.image(950, 465, 'resume');
+
+        restart_menu.setInteractive({ draggable: true });
+        resume_menu.setInteractive({ draggable: true });
+
+        restart_menu.on('pointerdown', () => {
+
+            this.scene.stop('PlatformScene');
+            this.scene.start('PlatformScene');
+            this.scene.stop('PauseScene');
+
+        });
+
+        resume_menu.on('pointerdown', () => {
+
+            this.scene.resume('PlatformScene');
+            this.scene.stop('PauseGame')
+
+        });
+
+        this.input.keyboard.on('keydown-ESC', () => {
+
+            this.scene.resume('PlatformScene');
+            this.scene.stop('PauseGame')
+        });
+    }
+}
