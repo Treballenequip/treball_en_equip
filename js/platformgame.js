@@ -21,11 +21,15 @@ class PlatformScene extends Phaser.Scene {
 		);
 	}
     create (){	
-		this.cameras.main.setBounds(0, 0, 720 * 2, 176);
+		this.cameras.main.setBounds(400, 0, 1920 * 2, 0);
+        this.physics.world.setBounds(0, 0, 1920 * 2, 1080 * 2);
 
-        for (let x = 0; x < 2; x++)
+        
+        //  Mash 4 images together to create our background
+        for (let x = 0; x < 10; x++)
         {
-            this.add.image(720 * x, 0, 'sky').setOrigin(0);
+            this.add.image(700 * x, 0, 'sky').setOrigin(0);
+            this.add.image(700 * x, 400, 'sky').setOrigin(0).setFlipY(true);
         }
 
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -86,7 +90,7 @@ class PlatformScene extends Phaser.Scene {
         else
         {
             this.player.anims.play('right', true);
-            this.player.setVelocityX(100);
+            this.player.setVelocityX(300);
             console.log(this.player.body.position.y)
             if (this.cursors.left.isDown)
             {
