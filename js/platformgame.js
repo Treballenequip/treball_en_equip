@@ -19,13 +19,12 @@ class PlatformScene extends Phaser.Scene {
 		this.load.image('sky', '../assets/sky.jpg');
         this.load.image('cameraman', '../assets/camera_man.png');
 		this.load.spritesheet('dude',
-			'../assets/dude.png',
-			{ frameWidth: 32, frameHeight: 48 }
-		);
+            '../assets/pngegg.png',
+        { frameWidth: 95, frameHeight: 160 })
 	}
     create (){	
-		this.cameras.main.setBounds(0, 0, 3840 * 2, 0);
-        this.physics.world.setBounds(0, 0, 3840 * 2, 1080 * 2);
+		this.cameras.main.setBounds(0, 0, 3840 * 4, 0);
+        this.physics.world.setBounds(0, 0, 3840 * 4, 1080 * 2);
 
         //Pause execution
         this.input.keyboard.on('keydown-ESC', () => {
@@ -35,7 +34,7 @@ class PlatformScene extends Phaser.Scene {
         });
 
         //  Mash 4 images together to create our background
-        for (let x = 0; x < 30; x++)
+        for (let x = 0; x < 100; x++)
         {
             this.add.image(700 * x, 0, 'sky').setOrigin(0);
             this.add.image(700 * x, 400, 'sky').setOrigin(0).setFlipY(true);
@@ -51,29 +50,29 @@ class PlatformScene extends Phaser.Scene {
 			this.player.setCollideWorldBounds(true);
 			
 			this.anims.create({
-				key: 'left',
-				frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
-				frameRate: 10,
-				repeat: -1
-			});
+                key: 'left',
+                frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+                frameRate: 10,
+                repeat: -1
+            });
 
-			this.anims.create({
-				key: 'turn',
-				frames: [ { key: 'dude', frame: 4 } ],
-				frameRate: 20
-			});
+            this.anims.create({
+                key: 'turn',
+                frames: [ { key: 'dude', frame: 4 } ],
+                frameRate: 20
+            });
 
-			this.anims.create({
-				key: 'right',
-				frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
-				frameRate: 10,
-				repeat: -1
-			});
-		}
+            this.anims.create({
+                key: 'right',
+                frames: this.anims.generateFrameNumbers('dude', { start:24, end: 35 }),
+                frameRate: 10,
+                repeat: -1
+            });
+		};
         
         this.reporters = this.physics.add.group();
         this.createEnemy();
-        this.player.setScale(0.6);
+        this.player.setScale(.3);
         
         this.physics.add.collider(this.player, this.reporters, 
             (body1, body2)=>this.hitBomb(body1, body2));
@@ -116,22 +115,34 @@ class PlatformScene extends Phaser.Scene {
             if (this.player.body.position.x >= 1000 && this.player.body.position.x < 1500) {
                 this.player.setVelocityX(200);
             }
-            else if (this.player.body.position.x >= 1500) {
+            else if (this.player.body.position.x >= 1500 && this.player.body.position.x < 3500) {
                 this.player.setVelocityX(300);
+            } 
+            else if (this.player.body.position.x >= 3500 && this.player.body.position.x < 10500) {
+                this.player.setVelocityX(500);
+            }
+            else if (this.player.body.position.x >= 10500) {
+                if (this.gameOver) 
+			        return;
+                alert("You win!")
+                this.physics.pause();
+                this.player.anims.play('turn');
+                this.gameOver = true;
+                setTimeout(()=>loadpage("../"), 3000);
             } 
             else {
                 this.player.setVelocityX(100);
             }
             console.log(this.player.body.velocity.x)
-            if (this.cursors.left.isDown && this.player.body.position.y != 325.6)
+            if (this.cursors.left.isDown && this.player.body.position.y != 316)
             {
                 this.player.setPosition(this.player.body.position.x+5,340);
             }
-            else if (this.cursors.down.isDown && this.player.body.position.y != 375.6)
+            else if (this.cursors.down.isDown && this.player.body.position.y != 366)
             {
                 this.player.setPosition(this.player.body.position.x+5,390   );
             }
-            else if (this.cursors.right.isDown && this.player.body.position.y != 415.6)
+            else if (this.cursors.right.isDown && this.player.body.position.y != 406)
             {
                 this.player.setPosition(this.player.body.position.x+5,430);
             }
